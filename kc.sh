@@ -60,5 +60,5 @@ if [ -z "$1" ]; then
 	exit 1
 fi
 
-unlockKeychain || exit 1
+#unlockKeychain || exit 1
 getPassword "$1"
