@@ -3,6 +3,7 @@
 #set -x
 
 keychain="pass"
+copyToClipboard=1
 
 function unlockKeychain {
 	security unlock-keychain "${keychain}.keychain"
@@ -61,4 +62,11 @@ if [ -z "$1" ]; then
 fi
 
 #unlockKeychain || exit 1
-getPassword "$1"
+pass=$(getPassword "$1")
+
+if (( copyToClipboard == 1 )); then
+	echo "$pass" | pbcopy
+	exit
+fi
+
+echo "$pass"
