@@ -4,6 +4,10 @@
 
 keychain="pass"
 
+function unlockKeychain {
+	security unlock-keychain "${keychain}.keychain"
+}
+
 function getEntries {
 	security dump-keychain -d "${keychain}.keychain" | grep srvr | cut -d '=' -f 2 | awk '{print substr($0, 2, length($0) - 2)}'	
 }
@@ -56,4 +60,5 @@ if [ -z "$1" ]; then
 	exit 1
 fi
 
+unlockKeychain || exit 1
 getPassword "$1"
